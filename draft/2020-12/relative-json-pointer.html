@@ -392,12 +392,12 @@
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.20.1 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.30.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Luff, G. and H. Andrews, Ed." />
-  <meta name="dct.identifier" content="urn:ietf:id:draft-handrews-relative-json-pointer-02" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-17" />
+  <meta name="dct.creator" content="Luff, G., Andrews, H., Ed., and B. Hutton, Ed." />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-bhutton-relative-json-pointer-00" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-28" />
   <meta name="dct.abstract" content="JSON Pointer is a syntax for specifying locations in a JSON document, starting from the document root.  This document defines an extension to the JSON Pointer syntax, allowing relative locations from within the document.  " />
   <meta name="description" content="JSON Pointer is a syntax for specifying locations in a JSON document, starting from the document root.  This document defines an extension to the JSON Pointer syntax, allowing relative locations from within the document.  " />
 
@@ -421,8 +421,16 @@
 <td class="right">H. Andrews, Ed.</td>
 </tr>
 <tr>
-<td class="left">Expires: March 20, 2020</td>
-<td class="right">September 17, 2019</td>
+<td class="left">Expires: August 1, 2021</td>
+<td class="right"></td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">B. Hutton, Ed.</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">January 28, 2020</td>
 </tr>
 
     	
@@ -430,7 +438,7 @@
   </table>
 
   <p class="title">Relative JSON Pointers<br />
-  <span class="filename">draft-handrews-relative-json-pointer-02</span></p>
+  <span class="filename">draft-bhutton-relative-json-pointer-00</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>JSON Pointer is a syntax for specifying locations in a JSON document, starting from the document root.  This document defines an extension to the JSON Pointer syntax, allowing relative locations from within the document.  </p>
@@ -438,9 +446,9 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on March 20, 2020.</p>
+<p>This Internet-Draft will expire on August 1, 2021.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
-<p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
 
   
@@ -497,8 +505,9 @@
 <p>The ABNF syntax of a Relative JSON Pointer is: </p>
 <pre>
 
-   relative-json-pointer =  non-negative-integer &amp;lt;json-pointer&amp;gt;
+   relative-json-pointer =  non-negative-integer [index-manipulation] &lt;json-pointer&gt;
    relative-json-pointer =/ non-negative-integer "#"
+   index-manipulation    =  ("+" / "-") non-negative-integer
    non-negative-integer      =  %x30 / %x31-39 *( %x30-39 )
            ; "0", or digits without a leading "0"
 
@@ -508,7 +517,7 @@
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> Evaluation</h1>
 <p id="rfc.section.4.p.1">Evaluation of a Relative JSON Pointer begins with a reference to a value within a JSON document, and completes with either a value within that document, a string corresponding to an object member, or integer value representing an array index.  </p>
-<p id="rfc.section.4.p.2">Evaluation begins by processing the non-negative-integer prefix.  This can be found by taking the longest continuous sequence of decimal digits available, starting from the beginning of the string, taking the decimal numerical value.  If this value is more than zero, then the following steps are repeated that number of times: <a href="#RFC6901" class="xref">RFC 6901, Section 4</a> ("Evaluation"), with the modification that the initial reference being used is the reference currently being held (which may not be root of the document).  </p>
+<p id="rfc.section.4.p.2">Evaluation begins by processing the non-negative-integer prefix.  This can be found by taking the longest continuous sequence of decimal digits available, starting from the beginning of the string, taking the decimal numerical value.  If this value is more than zero, then the following steps are repeated that number of times: </p>
 
 <ul class="empty">
 <li>If the current referenced value is the root of the document, then evaluation fails (see below).  </li>
@@ -516,8 +525,17 @@
 <li>If the referenced value is an object member within an object, then the new referenced value is that object.  </li>
 </ul>
 
-<p> If the remainder of the Relative JSON Pointer is a JSON Pointer, then evaluation proceeds as per </p>
-<p id="rfc.section.4.p.3">Otherwise (when the remainder of the Relative JSON Pointer is the character '#'), the final result is determined as follows: </p>
+<p> </p>
+<p id="rfc.section.4.p.3">If the next character is a plus ("+") or minus ("-"), followed by another continuous sequence of decimal digits, the following steps are taken using the decimal numeric value of that plus or minus sign and decimal sequence: </p>
+
+<ul class="empty">
+<li>If the current referenced value is not an item of an array, then evaluation fails (see below).  </li>
+<li>If the referenced value is an item of an array, then the new referenced value is the item of the array indexed by adding the decimal value (which may be negative), to the index of the current referenced value.  </li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.p.4">If the remainder of the Relative JSON Pointer is a JSON Pointer, then evaluation proceeds as per <a href="#RFC6901" class="xref">RFC 6901, Section 5</a> with the modification that the initial reference being used is the reference currently being held (which may not be root of the document).  </p>
+<p id="rfc.section.4.p.5">Otherwise (when the remainder of the Relative JSON Pointer is the character '#'), the final result is determined as follows: </p>
 
 <ul class="empty">
 <li>If the current referenced value is the root of the document, then evaluation fails (see below).  </li>
@@ -549,8 +567,10 @@
 
                   "0"                         "baz"
                   "1/0"                       "bar"
+                  "0-1"                       "bar"
                   "2/highly/nested/objects"   true
                   "0#"                        1
+                  "0-1#"                      0
                   "1#"                        "foo"
 
                     </pre>
@@ -612,6 +632,11 @@
 <p></p>
 
 <dl>
+<dt>draft-bhutton-relative-json-pointer-00</dt>
+<dd style="margin-left: 8">
+<ul><li>Add array forward and backward index manipulation</li></ul>
+<p> </p>
+</dd>
 <dt>draft-handrews-relative-json-pointer-02</dt>
 <dd style="margin-left: 8">
 <ul><li>Update to the latest JSON RFC</li></ul>
@@ -679,6 +704,29 @@
 	  <span class="country-name vcardline"></span>
 	</span>
 	<span class="vcardline">EMail: <a href="mailto:andrews_henry@yahoo.com">andrews_henry@yahoo.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Ben Hutton</span> (editor)
+	  <span class="n hidden">
+		<span class="family-name">Hutton</span>
+	  </span>
+	</span>
+	<span class="org vcardline"></span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:ben@jsonschema.dev">ben@jsonschema.dev</a></span>
+
+<span class="vcardline">URI: <a href="https://jsonschema.dev">https://jsonschema.dev</a></span>
 
   </address>
 </div>

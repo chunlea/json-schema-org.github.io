@@ -60,13 +60,6 @@ Validators
 </ul>
 
 
-
-### Online
-
--   [JSON Schema Lint](http://jsonschemalint.com/) - validate against your own schemas
--   [SchemaStore.org](http://schemastore.org/validator/) - validate against common JSON Schemas
--   [quicktype.io](https://app.quicktype.io/#l=schema) - infer JSON Schema from samples, and generate TypeScript, C++, go, Java, C#, Swift, etc. types from JSON Schema
-
 ### Command Line
 
 <!-- To add a validator library, add it in _data/validator-libraries-obsolete.yml -->
@@ -84,12 +77,9 @@ Validators
 <!-- -->
 
 -   JavaScript
-    -   [json-schema-benchmark](https://github.com/ebdrup/json-schema-benchmark) - an independent benchmark for Node.js JSON-schema validators based on JSON-Schema Test Suite (MIT)
     -   [z-schema validator benchmark](https://github.com/zaggino/z-schema#benchmarks) - compares performance in the individual tests from JSON-Schema Test Suite (MIT)
     -   [JSCK validator benchmark](https://github.com/pandastrike/jsck#benchmarks) - shows performance for JSON-schemas of different complexity (MIT)
 
--   PHP
-    -   [php-json-schema-bench](https://github.com/swaggest/php-json-schema-bench) - comparative benchmark for JSON-schema PHP validators using JSON-Schema Test Suite and z-schema/JSCK (MIT)
 
 Hyper-Schema
 ---------------------
@@ -129,7 +119,7 @@ Hyper-Schema
   {% endfor %}
 </ul>
 
-Schema generators
+Schema Generators
 -----------------
 
 -   Python
@@ -151,13 +141,11 @@ Generators from schemas
 -   JavaScript
     -   [json-schema-generator](https://github.com/json-schema-faker) (MIT) - JSON-Schema + fake data generators
 
-Data parsing and code generation
+Data Parsing and Code Generation
 --------------------------------
 
 -   Delphi
     - [DJsonSchema](https://github.com/schlothauer-wauer/DJsonSchema) (MIT) - JSON Schema reader and code generator for Delphi.
--   Groovy
-    - [jsonCodeGen](https://github.com/schlothauer-wauer/jsoncodegen) (MIT) - Groovy based generation tasks from JSON schema. Already includes generators for Java Beans, Swagger specification files and PlantUML diagrams.
 -   Haskell
     -   [aeson-schema](https://github.com/Fuuzetsu/aeson-schema) (MIT) - generates code for a parser
 -   Ruby
@@ -168,9 +156,9 @@ Data parsing and code generation
 -   Swift
     -   [Bric-à-brac](https://github.com/glimpseio/BricBrac) (MIT) - generates idiomatic swift structs and parser/serializer from JSON schemas
 -   Golang
-    -  [gojsonschema](https://github.com/andy-zhangtao/gojsonschema)(Apache 2.0) - golang package for generating golang struct *supports Draft 4*. [Demo](http://json.golang.chinazt.cc)
+    -  [gojsonschema](https://github.com/andy-zhangtao/gojsonschema)(Apache 2.0) - golang package for generating golang struct *support for Draft 4*. [Demo](http://json.golang.chinazt.cc)
 
-UI generation
+UI Generation
 -------------
 
 _TODO: Sort by draft support._
@@ -178,34 +166,20 @@ _TODO: Sort by draft support._
 Various levels of support for UI generation primarily from the validation vocabulary or combined with UI specific definition.
 
 -   JavaScript
-    -   [Alpaca Forms](http://www.alpacajs.org/) (ASL 2.0)
-    -   [Angular Schema Form](https://github.com/json-schema-form/angular-schema-form) (MIT)
-    -   [Angular2 Schema Form](https://github.com/makinacorpus/angular2-schema-form) *unrelated to Angular Schema Form* (MIT)
     -   [JSON Editor](https://github.com/jdorn/json-editor) (MIT)
-    -   [JSON Form](https://github.com/joshfire/jsonform) (joshfire) (MIT)
-    -   [Json Forms](https://github.com/brutusin/json-forms) (brutusin) (MIT)
     -   [JSONForms](http://jsonforms.io) (EclipseSource) (MIT)
     -   [Jsonary](http://jsonary.com/) (MIT)
-    -   [Liform-react](https://github.com/Limenius/liform-react) (MIT)
     -   [Metawidget](http://metawidget.org/) (LGPL)
     -   [pure-form webcomponent](https://github.com/john-doherty/pure-form) (MIT)
-    -   [React JSON Schema Form](https://github.com/mozilla-services/react-jsonschema-form) (Apache 2)
-    -   [React Schema Form](https://github.com/networknt/react-schema-form) (MIT)
 
 Editors
 -------
 
-_TODO: Sort by draft support._
-
 -   [Liquid XML Studio 2016](https://www.liquid-technologies.com/json-schema-editor) - *Graphical JSON schema editor for draft 4, context sensitive intellisense for JSON documents.*
+-   [ReSharper 2016.1](https://www.jetbrains.com/resharper/) - *code completion, inspections and quick fixes for JSON schema in Visual Studio 2010 - 2015, including support for JSON Path and regular expressions for schema editing. Support for draft-4*
 -   [Visual Studio 2013](http://www.visualstudio.com/) - *Auto-completion and tooltips based on JSON schema draft 3 and draft 4*
--   [JSONBuddy](http://www.json-buddy.com/) - *Grid-style JSON editor and context sensitive entry-helpers based on JSON schema*
--   [ReSharper 2016.1](https://www.jetbrains.com/resharper/) - *code completion, inspections and quick fixes for JSON schema in Visual Studio 2010 - 2015, including support for JSON Path and regular expressions for schema editing*
--   [Visual Studio Code](https://code.visualstudio.com/) - *Schema driven code completion, hovers and validation for editing JSON files (including schemas)*
--   [JSONEditor Online](http://jsoneditoronline.org) - *View, edit, format, and validate JSON online*
 -   [JSON Schema Editor](https://json-schema-editor.tangramjs.com) - *An intuitive editor for JSON schema online*
 -   [JSON Editor](https://json-editor.tangramjs.com) - *An online, schema-aware editor for JSON document*
--   [Eclipse IDE](https://www.eclipse.org/downloads/eclipse-packages) - *Rich JSON edition supporting schema for instantaneous validation and error reporting, completion, documentation.*
 
 Compatibility
 -------------
@@ -229,5 +203,3 @@ Other
 -   JavaScript
     -   [Dojo](http://www.dojotoolkit.org/) (AFL or BSD) - supports some aspects of JSON Schema
     -   [JSON Schema Random](https://github.com/andreineculau/json-schema-random) (Apache 2.0)
-    -   [json-schema-merge-allof](https://github.com/mokkabonna/json-schema-merge-allof) (MIT)
-    -   [json-schema-compare](https://github.com/mokkabonna/json-schema-compare) (MIT)
